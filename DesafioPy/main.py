@@ -71,5 +71,7 @@ bd_result = bd_result.drop(columns=['CO_UF_RESIDENCIA', 'NU_IDADE', 'TP_COR_RACA
 y_result = regressor.predict(X_result)
 bd_y = pd.DataFrame.from_records(y_result)
 bd_y.columns=['NU_NOTA_MT']
-bd_result = bd_result.append(bd_y, ignore_index=True)
-bd_result.to_csv('answer.csv')
+
+bd_result = bd_result.join(bd_y)
+
+bd_result.to_csv('answer.csv',index=False)
