@@ -30,6 +30,7 @@ bd_train = bd_train.replace('O','14')
 bd_train = bd_train.replace('P','15')
 bd_train = bd_train.replace('Q','16')
 
+'''
 bd_train = bd_train.replace('c8328ebc6f3238e06076c481bc1b82b8301e7a3f',100)
 bd_train = bd_train.replace('b9b06ce8c319a3df2158ea3d0aef0f7d3eecaed7',101)
 bd_train = bd_train.replace('2d22ac1d42e6187f09ee6c578df187a760123ccf',102)
@@ -66,7 +67,7 @@ bd_train = bd_train.replace('0e0082361eaceb6418bb17305a2b7912650b4783',132)
 bd_train = bd_train.replace('6d6961694e839531aec2d35bbd8552b55394a0d7',133)
 bd_train = bd_train.replace('73c5c86eef8f70263e4c5708d153cca123f93378',134)
 bd_train = bd_train.replace('16f84b7b3d2aeaff7d2f01297e6b3d0e25c77bb2',135)
-
+'''
 
 bd_train = bd_train.fillna('-10')
 bd_train1 = bd_train[bd_train['TP_PRESENCA_CH'] != 2]
@@ -144,7 +145,7 @@ bd_result = bd_result.replace('N','13')
 bd_result = bd_result.replace('O','14')
 bd_result = bd_result.replace('P','15')
 bd_result = bd_result.replace('Q','16')
-
+'''
 bd_result = bd_result.replace('01abbb7f1a90505385f44eec9905f82ca2a42cfd',100)
 bd_result = bd_result.replace('01af53cd161a420fff1767129c10de560cc264dd',101)
 bd_result = bd_result.replace('03b1fba5c1ebbc47988cd303b08982cfb2aa9cf2',102)
@@ -178,7 +179,7 @@ bd_result = bd_result.replace('c95541bf218d7ff70572ca4bcb421edeff05c6d5',129)
 bd_result = bd_result.replace('f48d390ab6a2428e659c37fb8a9d00afde621889',130)
 bd_result = bd_result.replace('f94e97c2a5689edd5369740fde9a927e23a9465f',131)
 bd_result = bd_result.replace('fa86b01f07636b15adfd66b688c79934730721a6',132)
-
+'''
 
 bd_result_join = bd_result[bd_result['TP_PRESENCA_LC'] == 1] 
 
