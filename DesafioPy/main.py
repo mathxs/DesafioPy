@@ -92,13 +92,30 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 10)
 
 #Treinando o Modelo de Regressão Linear
-from sklearn.linear_model import LinearRegression
-regressor = LinearRegression()
+#from sklearn.linear_model import LinearRegression
+#regressor = LinearRegression()
+# import the class
+#from sklearn.linear_model import LogisticRegression
+# instantiate the model (using the default parameters)
+#regressor = LogisticRegression()
 # Ajustando os Dados de Treinamento ao nosso Modelo
-lr = regressor.fit(X, y)
+#regressor.fit(X, np.array(y).astype(int).ravel())
 # Predizendo o preço para nosso Conjunto de Validação
-y_pred = regressor.predict(X_test)
+#y_pred = regressor.predict(X_test)
 # Pontuando o Modelo
+
+from sklearn.preprocessing import StandardScaler
+
+sc = StandardScaler()  
+X_train = sc.fit_transform(X_train)  
+X_test = sc.transform(X_test)  
+
+from sklearn.ensemble import RandomForestRegressor
+
+regressor = RandomForestRegressor(n_estimators=200, random_state=0)  
+regressor.fit(X_train, y_train)  
+y_pred = regressor.predict(X_test)  
+
 
 from sklearn.metrics import r2_score, mean_squared_error
 # Valor de R2 perto de 1 nos diz que é um bom modelo
@@ -107,7 +124,9 @@ print(f"R2 score: {r2_score(y_test, y_pred)}")
 print(f"MSE score: {mean_squared_error(y_test, y_pred)}")
 
 bd_erro = pd.DataFrame.from_records(y_test)
-bd_erro = bd_erro.join(pd.DataFrame.from_records(y_pred))
+arr = np.array(y_pred)
+df = pd.DataFrame(data=arr.flatten())
+bd_erro = bd_erro.join(df)
 
 
 '''
@@ -187,11 +206,14 @@ bd_result_join = bd_result[bd_result['TP_PRESENCA_LC'] == 1]
 X_result = bd_result[['Q047', 'Q001', 'Q002', 'Q006', 'Q024', 'Q025', 'Q026', 'TP_SEXO','CO_UF_RESIDENCIA', 'NU_IDADE', 'TP_COR_RACA', 'TP_ST_CONCLUSAO', 'TP_ANO_CONCLUIU', 'TP_ESCOLA', 'TP_ENSINO', 'TP_PRESENCA_CH', 'TP_PRESENCA_LC', 'NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'TP_LINGUA', 'TP_STATUS_REDACAO', 'NU_NOTA_COMP1', 'NU_NOTA_COMP2', 'NU_NOTA_COMP3', 'NU_NOTA_COMP4', 'NU_NOTA_COMP5', 'NU_NOTA_REDACAO']]
 bd_result_join = bd_result_join.drop(columns=['Q047', 'TP_PRESENCA_LC','Q001', 'Q002', 'Q006', 'Q024', 'Q025', 'Q026', 'TP_SEXO','CO_UF_RESIDENCIA', 'NU_IDADE', 'TP_COR_RACA', 'TP_ST_CONCLUSAO', 'TP_ANO_CONCLUIU', 'TP_ESCOLA', 'TP_ENSINO', 'TP_PRESENCA_CH', 'NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'TP_LINGUA', 'TP_STATUS_REDACAO', 'NU_NOTA_COMP1', 'NU_NOTA_COMP2', 'NU_NOTA_COMP3', 'NU_NOTA_COMP4', 'NU_NOTA_COMP5', 'NU_NOTA_REDACAO'])
 
+X_result = sc.transform(X_result)  
 y_result = regressor.predict(X_result)
-bd_y = pd.DataFrame.from_records(y_result)
+
+arr = np.array(y_result)
+bd_y = pd.DataFrame(data=arr.flatten())
 bd_y.columns=['NU_NOTA_MT']
 bd_y = bd_y.NU_NOTA_MT.round(1)
-
 bd_result_join = bd_result_join.join(bd_y)
+
 
 bd_result_join.to_csv('answer.csv',index=False)
