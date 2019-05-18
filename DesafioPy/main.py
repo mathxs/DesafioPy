@@ -112,7 +112,7 @@ X_test = sc.transform(X_test)
 
 from sklearn.ensemble import RandomForestRegressor
 
-regressor = RandomForestRegressor(n_estimators=200, random_state=0)  
+regressor = RandomForestRegressor(n_estimators=10000, random_state=0)  
 regressor.fit(X_train, y_train)  
 y_pred = regressor.predict(X_test)  
 
