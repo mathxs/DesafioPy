@@ -31,8 +31,8 @@ bd_train = bd_train.replace('P','15')
 bd_train = bd_train.replace('Q','16')
 
 bd_train = bd_train.fillna('-10')
-#bd_train = bd_train[bd_train['TP_PRESENCA_CN'] != 0]
-bd_train = bd_train[bd_train['TP_PRESENCA_LC'] != 0] 
+bd_train1 = bd_train[bd_train['TP_PRESENCA_CN'] != 2]
+bd_train2 = bd_train1[bd_train1['TP_PRESENCA_LC'] == 1] 
  
 #sns.distplot(bd_train['NU_NOTA_MT'], bd_train['NU_NOTA_CH'], bd_train['NU_NOTA_LC'], bd_train['NU_NOTA_CN']);
 #sns.distplot(bd_train['NU_NOTA_MT']);
@@ -45,8 +45,8 @@ for col in columns:
 #Regressão linear
 # Preparando os Dados
 #X = bd_train[['NU_NOTA_CH']]
-X = bd_train[['Q001', 'Q002', 'Q006', 'Q024', 'Q025', 'Q026', 'IN_TREINEIRO', 'TP_NACIONALIDADE', 'TP_SEXO','CO_UF_RESIDENCIA', 'NU_IDADE', 'TP_COR_RACA', 'TP_ST_CONCLUSAO', 'TP_ANO_CONCLUIU', 'TP_ESCOLA', 'TP_ENSINO', 'TP_DEPENDENCIA_ADM_ESC', 'IN_DISCALCULIA', 'TP_PRESENCA_CN', 'TP_PRESENCA_CH', 'TP_PRESENCA_LC', 'NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'TP_LINGUA', 'TP_STATUS_REDACAO', 'NU_NOTA_COMP1', 'NU_NOTA_COMP2', 'NU_NOTA_COMP3', 'NU_NOTA_COMP4', 'NU_NOTA_COMP5', 'NU_NOTA_REDACAO']]
-y = bd_train[['NU_NOTA_MT']]
+X = bd_train2[['Q001', 'Q002', 'Q006', 'Q024', 'Q025', 'Q026', 'IN_TREINEIRO', 'TP_NACIONALIDADE', 'TP_SEXO','CO_UF_RESIDENCIA', 'NU_IDADE', 'TP_COR_RACA', 'TP_ST_CONCLUSAO', 'TP_ANO_CONCLUIU', 'TP_ESCOLA', 'TP_ENSINO', 'TP_DEPENDENCIA_ADM_ESC', 'IN_DISCALCULIA', 'TP_PRESENCA_CN', 'TP_PRESENCA_CH', 'TP_PRESENCA_LC', 'NU_NOTA_CN', 'NU_NOTA_CH', 'NU_NOTA_LC', 'TP_LINGUA', 'TP_STATUS_REDACAO', 'NU_NOTA_COMP1', 'NU_NOTA_COMP2', 'NU_NOTA_COMP3', 'NU_NOTA_COMP4', 'NU_NOTA_COMP5', 'NU_NOTA_REDACAO']]
+y = bd_train2[['NU_NOTA_MT']]
 	
 # Separando o conjunto de dados em Conjunto de Treino e Validação
 from sklearn.model_selection import train_test_split
